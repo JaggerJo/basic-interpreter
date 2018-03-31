@@ -1,3 +1,16 @@
+(* Mini BASIC Interpreter
+
+   This file contains source code from the book:
+   "Developing Applications with Objective Caml"
+
+   The book is available at:
+   https://caml.inria.fr/pub/docs/oreilly-book/html/
+
+   The specific part of the book which descibes the
+   basic interpreter implementation is available at
+   https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora058.html
+*)
+
 (* Abstract Syntax Types *)
 type unary_op = MINUS | NOT
 
@@ -299,21 +312,21 @@ let rec eval_exp n envt expr = match expr with
   | ExpStr s -> Vstr s  
   | ExpBin (e1,op,e2) ->
     match eval_exp n envt e1 , op , eval_exp n envt e2 with
-    | Vint v1 , PLUS   , Vint v2  ->  Vint (v1 + v2) 
-    | Vint v1 , MINUS  , Vint v2  ->  Vint (v1 - v2) 
-    | Vint v1 , MULT   , Vint v2  ->  Vint (v1 * v2) 
-    | Vint v1 , DIV   , Vint v2  when v2<>0 ->  Vint (v1 / v2) 
-    | Vint v1 , MOD   , Vint v2  when v2<>0 ->  Vint (v1 mod v2) 
-    | Vint v1 , EQ   , Vint v2  ->  Vbool (v1 = v2) 
-    | Vint v1 , DIFF , Vint v2  ->  Vbool (v1 <> v2) 
-    | Vint v1 , LT   , Vint v2  ->  Vbool (v1 < v2) 
-    | Vint v1 , GT  , Vint v2  ->  Vbool (v1 > v2) 
-    | Vint v1 , LE  , Vint v2  ->  Vbool (v1 <= v2) 
-    | Vint v1 , GE , Vint v2  ->  Vbool (v1 >= v2) 
-    | Vbool v1 , AND , Vbool v2  ->  Vbool (v1 && v2) 
-    | Vbool v1 , OR , Vbool v2  ->  Vbool (v1 || v2) 
-    | Vstr v1 , PLUS , Vstr v2 -> Vstr (v1 ^ v2) 
-    | _ , _ , _  -> runerr n
+    | Vint v1, PLUS, Vint v2 -> Vint (v1 + v2) 
+    | Vint v1, MINUS, Vint v2 -> Vint (v1 - v2) 
+    | Vint v1, MULT, Vint v2 -> Vint (v1 * v2) 
+    | Vint v1, DIV, Vint v2 when v2<>0 -> Vint (v1 / v2) 
+    | Vint v1, MOD, Vint v2 when v2<>0 -> Vint (v1 mod v2) 
+    | Vint v1, EQ, Vint v2 -> Vbool (v1 = v2) 
+    | Vint v1, DIFF, Vint v2 -> Vbool (v1 <> v2) 
+    | Vint v1, LT, Vint v2 -> Vbool (v1 < v2) 
+    | Vint v1, GT, Vint v2 -> Vbool (v1 > v2) 
+    | Vint v1, LE, Vint v2 -> Vbool (v1 <= v2) 
+    | Vint v1, GE, Vint v2 -> Vbool (v1 >= v2) 
+    | Vbool v1, AND, Vbool v2 -> Vbool (v1 && v2) 
+    | Vbool v1, OR, Vbool v2 -> Vbool (v1 || v2) 
+    | Vstr v1, PLUS, Vstr v2 -> Vstr (v1 ^ v2) 
+    | _ , _ , _ -> runerr n
 
 let rec add v e env = match env with
   | [] -> [v,e]
@@ -389,7 +402,7 @@ let one_command state =
 
 let go () =
   try
-    print_string "Mini-BASIC Interpreter\n\n";
+    print_string "BASIC Interpreter\n\n";
     let rec loop state = loop (one_command state) in
     loop { prog = [] ; env=[] }
   with End -> print_string "See you later...\n"
