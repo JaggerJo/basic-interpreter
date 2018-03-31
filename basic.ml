@@ -12,23 +12,35 @@
 *)
 
 (* Abstract Syntax Types *)
-type unary_op = MINUS | NOT
+type unary_op = | MINUS
+                | NOT
 
-type binary_op = PLUS | MINUS | MULT | DIV | MOD | EQ |
-                 LT | LE | GT | GE | DIFF | AND | OR
+type binary_op = | PLUS
+                 | MINUS
+                 | MULT
+                 | DIV
+                 | MOD
+                 | EQ
+                 | LT
+                 | LE
+                 | GT
+                 | GE
+                 | DIFF
+                 | AND
+                 | OR
 
-type expression = ExpInt of int |
-                  ExpVar of string |
-                  ExpStr of string |
-                  ExpUnr of unary_op * expression |
-                  ExpBin of expression * binary_op * expression
+type expression = | ExpInt of int
+                  | ExpVar of string
+                  | ExpStr of string
+                  | ExpUnr of unary_op * expression
+                  | ExpBin of expression * binary_op * expression
 
-type command = Rem of string |
-               Goto of int |
-               Print of expression |
-               Input of string |
-               If of expression * int |
-               Let of string * expression
+type command = | Rem of string
+               | Goto of int
+               | Print of expression
+               | Input of string
+               | If of expression * int
+               | Let of string * expression
 
 type line = {num : int ; cmd : command}
 
